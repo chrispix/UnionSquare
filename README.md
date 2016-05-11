@@ -9,3 +9,7 @@ The Genius Bar has already given me a new phone, so it's almost certainly not a 
 But the problem keeps coming back. So I created this app to do one thing--if it detects I'm at that corner, it sends me a local notification. That way when I get the notification, hopefully I can start to narrow in on a cause.
 
 I have not come across anyone else with this problem. If you've experienced it, please let me know and feel free to try out the app to see if it helps you find the cause. I'd also love to know if your phone is also stuck in Union Square, or some other random location.
+
+![Helpful map of me in Union Square](http://d.twobitlabs.com/dI9dyamKVH.PNG)
+
+![Helpful notifications](http://d.twobitlabs.com/GxwQKFO94C.PNG)
