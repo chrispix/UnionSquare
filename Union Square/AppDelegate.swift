@@ -17,6 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        let alert = UIAlertController(title: "Important Update", message: notification.alertBody, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        if let _ = window?.rootViewController?.presentedViewController {
+            window?.rootViewController?.dismissViewControllerAnimated(true, completion: {
+                self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            })
+        } else {
+            window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
 
 }
 
