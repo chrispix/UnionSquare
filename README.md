@@ -1,4 +1,4 @@
-# UnionSquare
+# Union Square
 
 My iPhone 6s has a problem. Every once in a while, it thinks it's in Union Square in San Francisco. Specifically at the corner of Geary and Powell.
 
