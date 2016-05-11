@@ -43,6 +43,14 @@ class ViewController: UIViewController {
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         NSUserDefaults.standardUserDefaults().setBool(inUnionSquare, forKey: inUnionSquareKey)
     }
+
+    func logDate() {
+        let key = "union square times"
+        var dates = NSUserDefaults.standardUserDefaults().arrayForKey(key) ?? [String]()
+        dates.append(NSDate().description)
+        NSUserDefaults.standardUserDefaults().setObject(dates, forKey: key)
+        print("You've been in Union Square on \(dates)")
+    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
@@ -62,6 +70,7 @@ extension ViewController: CLLocationManagerDelegate {
             }
         case false:
             if inUnionSquare {
+                logDate()
                 notifyMe(.InUnionSquare)
             }
         }
