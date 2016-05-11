@@ -3,11 +3,17 @@ import UIKit
 import CoreLocation
 import MapKit
 
+enum WhereAmI {
+    case InUnionSquare
+    case NotInUnionSquare
+}
+
 class ViewController: UIViewController {
 
     var locationManager = CLLocationManager()
-    let unionSquare = CLLocation(latitude: 37.787400, longitude: -122.408240)
+    let unionSquare = CLLocation(latitude: 37.7874, longitude: -122.40824)
     let mapView = MKMapView()
+    let inUnionSquareKey = "in Union Square"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +36,12 @@ class ViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
 
-    func notifyMe() {
+    func notifyMe(whereAmI: WhereAmI) {
+        let inUnionSquare: Bool = whereAmI == .InUnionSquare
         let notification = UILocalNotification()
-        notification.alertBody = "You are in Union Square!"
+        notification.alertBody = inUnionSquare ? "You are in Union Square!" : "You have left Union Square!"
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        NSUserDefaults.standardUserDefaults().setBool(inUnionSquare, forKey: inUnionSquareKey)
     }
 }
 
@@ -46,10 +54,15 @@ extension ViewController: CLLocationManagerDelegate {
             mapView.setRegion(regionForMap, animated: true)
         }
 
-        for location in locations {
-            if location.distanceFromLocation(unionSquare) < 100 {
-                notifyMe()
-                break
+        let inUnionSquare = !locations.filter({ location in location.distanceFromLocation(unionSquare) < 100 }).isEmpty
+        switch NSUserDefaults.standardUserDefaults().boolForKey(inUnionSquareKey) {
+        case true:
+            if !inUnionSquare {
+                notifyMe(.NotInUnionSquare)
+            }
+        case false:
+            if inUnionSquare {
+                notifyMe(.InUnionSquare)
             }
         }
     }
